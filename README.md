@@ -7,5 +7,33 @@ Text can be sent to the service as:
 ```
 curl -X POST http://localhost:5000/find \
   -H "Content-Type: application/json" \
-  -d'{"text": "George Washington was president and he lived in Virginia.", "threshold": 0.50, "labels": ["Person", "Place"]}'
+  -d'{
+  "text": "George Washington was president and he lived in Virginia.",
+  "threshold": 0.5,
+  "labels": [
+    "Person",
+    "Place"
+  ]
+}'
+```
+
+With the response:
+
+```
+[
+  {
+    "end": 17,
+    "label": "Person",
+    "score": 0.9923100471496582,
+    "start": 0,
+    "text": "George Washington"
+  },
+  {
+    "end": 56,
+    "label": "Place",
+    "score": 0.9528881907463074,
+    "start": 48,
+    "text": "Virginia"
+  }
+]
 ```
