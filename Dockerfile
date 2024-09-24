@@ -5,6 +5,16 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip3 install -r requirements.txt
 
-COPY pheye.py /app
+COPY download-model.py /app
 
-CMD ["python3", "pheye.py"]
+ARG MODEL_NAME="urchade/gliner_mediumv2.1"
+RUN python3 /app/download-model.py
+
+COPY app.py /app
+COPY run.sh /app
+
+ENV HF_HUB_DISABLE_TELEMETRY=1
+ENV HF_HUB_OFFLINE=1
+ENV DO_NOT_TRACK=1
+
+CMD ["/app/run.sh"]
