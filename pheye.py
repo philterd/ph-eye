@@ -4,6 +4,8 @@ from flask import Flask, request
 from gliner import GLiNER
 from numpy.compat import os_fspath
 
+__version__ = "1.0.0"
+
 app = Flask(__name__)
 
 model_name = os.getenv("MODEL_NAME", "urchade/gliner_mediumv2.1")
@@ -31,4 +33,3 @@ def find():
 
 if __name__ == "__main__":
     app.run()
-    
