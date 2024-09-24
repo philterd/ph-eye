@@ -7,5 +7,5 @@ echo "Building ph-eye ${VERSION}..."
 docker build -t philterd/ph-eye:${VERSION} .
 docker tag philterd/ph-eye:latest philterd/ph-eye:${VERSION}
 
-docker push philterd/ph-eye:${VERSION} 
-docker push philterd/ph-eye:latest
+#docker push philterd/ph-eye:${VERSION}
+#docker push philterd/ph-eye:latest
