@@ -25,8 +25,7 @@ def find():
     r = request.json
 
     text = r["text"]
-    labels = r["labels"]
-    
+    labels = ["Person"] if "labels" not in r else r["labels"]
     threshold = 0.5 if "threshold" not in r else r["threshold"]
 
     if len(labels) == 0:
