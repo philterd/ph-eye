@@ -2,13 +2,14 @@ FROM python:3.12.6-slim-bullseye
 
 WORKDIR /app
 
+ARG MODEL_NAME
+
 COPY requirements.txt /app
 RUN pip3 install -r requirements.txt
 
 COPY download-model.py /app
-
-ARG MODEL_NAME
 RUN python3 /app/download-model.py
+RM /app/download-model.py
 
 COPY app.py /app
 COPY run.sh /app

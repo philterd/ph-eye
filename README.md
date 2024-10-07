@@ -39,3 +39,7 @@ With the response:
   }
 ]
 ```
+
+## License
+
+ph-eye is licensed under the Apache License, version 2.0. However, the model used by ph-eye may be used under a different license. Please refer to the specific model being used for information about its license.
