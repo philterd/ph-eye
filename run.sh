@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-python3 app.py
+MODEL_NAME="philterd/ph-eye-pii-base" python3 app.py
