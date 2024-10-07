@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 print("Starting ph-eye version " + __version__)
 model_name = os.getenv("MODEL_NAME", "urchade/gliner_mediumv2.1")
+print("Using model " + model_name)
 model = GLiNER.from_pretrained(model_name)
 
 
@@ -30,7 +31,7 @@ def find():
 
     if len(labels) == 0:
         labels = ["Person"]
-        
+
     entities = model.predict_entities(text, labels, threshold=threshold)
 
     return entities, 200

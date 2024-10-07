@@ -7,7 +7,7 @@ RUN pip3 install -r requirements.txt
 
 COPY download-model.py /app
 
-ARG MODEL_NAME="urchade/gliner_mediumv2.1"
+ARG MODEL_NAME
 RUN python3 /app/download-model.py
 
 COPY app.py /app
