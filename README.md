@@ -1,6 +1,6 @@
 # ph-eye
 
-PH-Eye is a service for hosting AI/NLP models for the purposes of finding PII and PHI in text. PH-Eye can be used standalone but it was designed and created for use with [Phileas](https://github.com/philterd/phileas) and [Philter](https://github.com/philterd/philter) and as such provides tight integration with each.
+ph-eye is a service for hosting AI/NLP models for the purposes of finding PII and PHI in text. PH-Eye can be used standalone but it was designed and created for use with [Phileas](https://github.com/philterd/phileas) and [Philter](https://github.com/philterd/philter) and as such provides tight integration with each.
 
 Docker images are available at https://hub.docker.com/repository/docker/philterd/ph-eye.
 
@@ -42,4 +42,4 @@ With the response:
 
 ## License
 
-ph-eye is licensed under the Apache License, version 2.0. However, the model used by ph-eye may be used under a different license. Please refer to the specific model being used for information about its license.
+ph-eye is licensed under the Apache License, version 2.0. However, the model(s) used by ph-eye may be used under a different license. Please refer to the specific model being used for information about its license.
