@@ -2,10 +2,9 @@ import os
 
 from flask import Flask, request
 from gliner import GLiNER
+from waitress import serve
 
-__version__ = "1.1.0"
-
-from mpmath.libmp.libintmath import ifac2
+__version__ = "1.2.0"
 
 app = Flask(__name__)
 
@@ -23,19 +22,26 @@ def status():
 @app.route("/find", methods=["POST"])
 def find():
 
-    r = request.json
+    try:
 
-    text = r["text"]
-    labels = ["Person"] if "labels" not in r else r["labels"]
-    threshold = 0.5 if "threshold" not in r else r["threshold"]
+        r = request.json
 
-    if len(labels) == 0:
-        labels = ["Person"]
+        text = r["text"]
+        labels = ["Person"] if "labels" not in r else r["labels"]
+        threshold = 0.5 if "threshold" not in r else r["threshold"]
 
-    entities = model.predict_entities(text, labels, threshold=threshold)
+        if len(labels) == 0:
+            labels = ["Person"]
 
-    return entities, 200
+        entities = model.predict_entities(text, labels, threshold=threshold)
+
+        return entities, 200
+
+    except Exception as e:
+        print(str(e))
+        return str(e), 500
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    serve(app, host="0.0.0.0", port=5000)
+

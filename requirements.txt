@@ -1,2 +1,3 @@
 Flask==3.0.3
 gliner==0.2.13
+waitress~=3.0.2
