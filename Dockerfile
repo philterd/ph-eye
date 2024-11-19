@@ -9,7 +9,6 @@ RUN pip3 install -r requirements.txt
 
 COPY download-model.py /app
 RUN python3 /app/download-model.py
-RUN /app/download-model.py
 
 COPY app.py /app
 COPY run.sh /app

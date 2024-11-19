@@ -3,14 +3,14 @@ import os
 from flask import Flask, request
 from gliner import GLiNER
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from mpmath.libmp.libintmath import ifac2
 
 app = Flask(__name__)
 
 print("Starting ph-eye version " + __version__)
-model_name = os.getenv("MODEL_NAME", "urchade/gliner_mediumv2.1")
+model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
 print("Using model " + model_name)
 model = GLiNER.from_pretrained(model_name)
 

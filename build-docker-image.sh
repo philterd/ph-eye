@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 VERSION=`cat app.py | grep "__version__" | head -1 | tr -d '__version__ = "'`
-MODEL_NAME=${1:-"urchade/gliner_mediumv2.1"}
+MODEL_NAME=${1:-"philterd/ph-eye-pii-base"}
 
 echo "Building ph-eye ${VERSION} with model ${MODEL_NAME}"
 
