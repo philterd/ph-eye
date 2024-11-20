@@ -12,7 +12,7 @@ print("Starting ph-eye version " + __version__)
 model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
 print("Using model " + model_name)
 model = GLiNER.from_pretrained(model_name)
-
+print("Model loaded")
 
 @app.route("/status", methods=["GET"])
 def status():
