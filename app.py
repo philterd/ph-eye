@@ -4,7 +4,7 @@ from flask import Flask, request
 from gliner import GLiNER
 from waitress import serve
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ print("Starting ph-eye version " + __version__)
 model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
 print("Using model " + model_name)
 model = GLiNER.from_pretrained(model_name)
-print("Model loaded")
+print("Model loaded and ready to serve requests")
 
 @app.route("/status", methods=["GET"])
 def status():
