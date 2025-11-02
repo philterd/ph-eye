@@ -4,7 +4,7 @@ from flask import Flask, request
 from gliner import GLiNER
 from waitress import serve
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 app = Flask(__name__)
 
