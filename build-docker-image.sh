@@ -7,6 +7,3 @@ echo "Building ph-eye ${VERSION} with model ${MODEL_NAME}"
 
 docker build --build-arg MODEL_NAME="${MODEL_NAME}" -t philterd/ph-eye:${VERSION} .
 docker tag philterd/ph-eye:${VERSION} philterd/ph-eye:latest
-
-docker push philterd/ph-eye:${VERSION}
-docker push philterd/ph-eye:latest
