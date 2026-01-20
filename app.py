@@ -55,7 +55,7 @@ def extract_medical_conditions(text):
             "label": res['entity_group'],
             "score": float(res['score']),
             "text": res['word'],
-            "start": res['start'],
+            "start": res['start'] + 1,
             "end": res['end']
         })
 
