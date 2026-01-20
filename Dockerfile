@@ -1,3 +1,9 @@
+FROM python:3.12.6-slim-bullseye AS model
+RUN apt-get update && apt-get install -y git git-lfs
+RUN git lfs install
+RUN git clone https://huggingface.co/blaze999/Medical-NER /tmp/model
+RUN rm -rf /tmp/model/.git
+
 FROM python:3.12.6-slim-bullseye
 
 WORKDIR /app
@@ -7,8 +13,7 @@ ARG MODEL_NAME
 COPY requirements.txt /app
 RUN pip3 install -r requirements.txt
 
-COPY download-model.py /app
-RUN python3 /app/download-model.py
+COPY --from=model /tmp/model /app/model
 
 COPY app.py /app
 COPY run.sh /app

@@ -1,6 +1,8 @@
 import os
 
-from gliner import GLiNER
+from transformers import pipeline
 
-model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
-model = GLiNER.from_pretrained(model_name)
+model_name = os.environ.get("MODEL_NAME", "blaze999/Medical-NER")
+print("Downloading model...")
+medical_ner_pipeline = pipeline("token-classification", model=model_name, aggregation_strategy="simple")
+print("Model downloaded.")

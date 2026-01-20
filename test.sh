@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-curl -s -X POST http://localhost:5000/find \
+curl -s -X POST http://localhost:18081/find \
   -H "Content-Type: application/json" \
   -d'{"text": "George Washington was president and he lived in Virginia. He had high blood pressure and is looking for help.", "threshold": 0.3, "labels": ["DISEASE_DISORDER"]}' | jq
 

@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask, request
 from transformers import pipeline
 from waitress import serve
@@ -9,15 +7,15 @@ __version__ = "1.2.3"
 app = Flask(__name__)
 
 print("Starting ph-eye version " + __version__)
-model_name = os.environ.get("MODEL_NAME", "blaze999/Medical-NER")
+#model_name = os.environ.get("MODEL_NAME", "blaze999/Medical-NER")
 print("Loading model...")
-medical_ner_pipeline = pipeline("token-classification", model=model_name, aggregation_strategy="simple")
+medical_ner_pipeline = pipeline("token-classification", model="/app/model/", aggregation_strategy="simple")
 print("Model loaded successfully!")
 
 
 @app.route("/status", methods=["GET"])
 def status():
-    return "healthy: " + model_name
+    return "healthy"
 
 
 @app.route("/find", methods=["POST"])
@@ -29,7 +27,7 @@ def find():
 
         text = r["text"]
         labels = ["DISEASE_DISORDER"] if "labels" not in r else r["labels"]
-        threshold = 0.5 if "threshold" not in r else r["threshold"]
+        threshold = 0.0 if "threshold" not in r else r["threshold"]
 
         medical_conditions = extract_medical_conditions(text)
 
