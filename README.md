@@ -1,5 +1,7 @@
 # ph-eye
 
+**This branch of ph-eye uses a model for detecting medical conditions in text.**
+
 ph-eye is a service for hosting AI/NLP models for the purposes of finding PII and PHI in text. PH-Eye can be used standalone but it was designed and created for use with [Phileas](https://github.com/philterd/phileas) and [Philter](https://github.com/philterd/philter) and as such provides tight integration with each.
 
 Docker images are available at https://hub.docker.com/repository/docker/philterd/ph-eye.
