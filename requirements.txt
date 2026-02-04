@@ -1,3 +1,4 @@
 Flask==3.1.2
 waitress==3.0.2
 transformers[torch]==4.57.6
+gliner==0.2.24
