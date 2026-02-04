@@ -1,7 +1,7 @@
 FROM python:3.12.6-slim-bullseye AS model
 RUN apt-get update && apt-get install -y git git-lfs
 RUN git lfs install
-RUN git clone https://huggingface.co/blaze999/Medical-NER /tmp/model
+RUN git clone https://huggingface.co/almanach/camembert-bio-gliner-v0.1 /tmp/model
 RUN rm -rf /tmp/model/.git
 
 FROM python:3.12.6-slim-bullseye
