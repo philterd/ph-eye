@@ -26,7 +26,7 @@ def find():
 
         text = r["text"]
         labels = ["Maladie"] if "labels" not in r else r["labels"]
-        threshold = 0.0 if "threshold" not in r else r["threshold"]
+        threshold = 0.3 if "threshold" not in r else r["threshold"]
 
         entities = model.predict_entities(text, labels, threshold=threshold, flat_ner=True)
 
@@ -37,7 +37,7 @@ def find():
                 "label": res['label'],
                 "score": float(res['score']),
                 "text": res['text'],
-                "start": res['start'] + 1,
+                "start": res['start'],
                 "end": res['end']
             })
 

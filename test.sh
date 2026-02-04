@@ -2,7 +2,7 @@
 
 curl -s -X POST http://localhost:5000/find \
   -H "Content-Type: application/json" \
-  -d'{"text": "Je m''appelle Mary et je suis diabétique.", "threshold": 0.3, "labels": ["Maladie"]}' | jq
+  -d'{"text": "Je mappelle Mary et je suis diabétique.", "threshold": 0.3, "labels": ["Maladie"]}' | jq
 
 # Expected output:
 #[
