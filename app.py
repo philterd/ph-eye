@@ -1,5 +1,5 @@
 from flask import Flask, request
-from transformers import pipeline
+from gliner import GLiNER
 from waitress import serve
 
 __version__ = "1.2.3"
@@ -7,9 +7,8 @@ __version__ = "1.2.3"
 app = Flask(__name__)
 
 print("Starting ph-eye version " + __version__)
-#model_name = os.environ.get("MODEL_NAME", "blaze999/Medical-NER")
 print("Loading model...")
-medical_ner_pipeline = pipeline("token-classification", model="/app/model/", aggregation_strategy="simple")
+model = GLiNER.from_pretrained("almanach/camembert-bio-gliner-v0.1")
 print("Model loaded successfully!")
 
 
@@ -26,40 +25,29 @@ def find():
         r = request.json
 
         text = r["text"]
-        labels = ["DISEASE_DISORDER"] if "labels" not in r else r["labels"]
+        labels = ["Maladie"] if "labels" not in r else r["labels"]
         threshold = 0.0 if "threshold" not in r else r["threshold"]
 
-        medical_conditions = extract_medical_conditions(text)
+        entities = model.predict_entities(text, labels, threshold=threshold, flat_ner=True)
+        print(entities)
 
-        filtered_medical_conditions = []
+        returned_entities = []
+        for res in entities:
 
-        for entity in medical_conditions:
-            if entity["label"] in labels and entity["score"] >= threshold:
-                filtered_medical_conditions.append(entity)
+            returned_entities.append({
+                "label": res['label'],
+                "score": float(res['score']),
+                "text": res['text'],
+                "start": res['start'] + 1,
+                "end": res['end']
+            })
 
-        return filtered_medical_conditions, 200
+        return returned_entities, 200
+
 
     except Exception as e:
         print(str(e))
         return str(e), 500
-
-
-def extract_medical_conditions(text):
-
-    results = medical_ner_pipeline(text)
-
-    entities = []
-    for res in results:
-
-        entities.append({
-            "label": res['entity_group'],
-            "score": float(res['score']),
-            "text": res['word'],
-            "start": res['start'] + 1,
-            "end": res['end']
-        })
-
-    return entities
 
 
 if __name__ == '__main__':

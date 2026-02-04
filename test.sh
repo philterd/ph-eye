@@ -1,16 +1,16 @@
 #!/bin/bash -e
 
-curl -s -X POST http://localhost:18081/find \
+curl -s -X POST http://localhost:5000/find \
   -H "Content-Type: application/json" \
-  -d'{"text": "George Washington was president and he lived in Virginia. He had high blood pressure and is looking for help.", "threshold": 0.3, "labels": ["DISEASE_DISORDER"]}' | jq
+  -d'{"text": "Je m''appelle Mary et je suis diabétique.", "threshold": 0.3, "labels": ["Maladie"]}' | jq
 
 # Expected output:
 #[
 #  {
-#    "end": 84,
-#    "label": "DISEASE_DISORDER",
-#    "score": 0.3687628209590912,
-#    "start": 64,
-#    "text": "high blood pressure"
+#    "end": 38,
+#    "label": "Maladie",
+#    "score": 0.7531318068504333,
+#    "start": 29,
+#    "text": "diabétique"
 #  }
 #]
