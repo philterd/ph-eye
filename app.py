@@ -29,7 +29,6 @@ def find():
         threshold = 0.0 if "threshold" not in r else r["threshold"]
 
         entities = model.predict_entities(text, labels, threshold=threshold, flat_ner=True)
-        print(entities)
 
         returned_entities = []
         for res in entities:
