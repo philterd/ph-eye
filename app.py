@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 print("Starting ph-eye version " + __version__)
 print("Loading model...")
-model = GLiNER.from_pretrained("EmergentMethods/gliner_medium_news-v2.1")
+model = GLiNER.from_pretrained("knowledgator/gliner-pii-base-v1.0")
 print("Model loaded successfully!")
 
 
@@ -25,7 +25,7 @@ def find():
         r = request.json
 
         text = r["text"]
-        labels = ["person"] if "labels" not in r else r["labels"]
+        labels = ["hospital"] if "labels" not in r else r["labels"]
         threshold = 0.0 if "threshold" not in r else r["threshold"]
 
         entities = model.predict_entities(text, labels)
