@@ -25,7 +25,7 @@ def find():
         r = request.json
 
         text = r["text"]
-        labels = ["hospital"] if "labels" not in r else r["labels"]
+        labels = ["hospital", "room number"] if "labels" not in r else r["labels"]
         threshold = 0.0 if "threshold" not in r else r["threshold"]
 
         entities = model.predict_entities(text, labels)
