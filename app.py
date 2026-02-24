@@ -38,7 +38,7 @@ def find():
                 "label": entity['label'],
                 "score": float(entity['score']),
                 "text": entity['text'],
-                "start": entity['start'] + 1,
+                "start": entity['start'],
                 "end": entity['end']
             })
 
