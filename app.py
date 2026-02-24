@@ -2,7 +2,7 @@ from flask import Flask, request
 from gliner import GLiNER
 from waitress import serve
 
-__version__ = "1.2.3"
+__version__ = "1.2.5"
 
 app = Flask(__name__)
 
@@ -33,14 +33,16 @@ def find():
         returned_entities = []
 
         for entity in entities:
-            #print(entity["text"], "=>", entity["label"])
-            returned_entities.append({
-                "label": entity['label'],
-                "score": float(entity['score']),
-                "text": entity['text'],
-                "start": entity['start'],
-                "end": entity['end']
-            })
+
+            score = float(entity['score'])
+            if score <= threshold:
+                returned_entities.append({
+                    "label": entity['label'],
+                    "score": float(entity['score']),
+                    "text": entity['text'],
+                    "start": entity['start'],
+                    "end": entity['end']
+                })
 
         return returned_entities, 200
 
