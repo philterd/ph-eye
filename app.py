@@ -33,16 +33,14 @@ def find():
         returned_entities = []
 
         for entity in entities:
-
-            score = float(entity['score'])
-            if(score >= threshold):
-                returned_entities.append({
-                    "label": entity['label'],
-                    "score": float(entity['score']),
-                    "text": entity['text'],
-                    "start": entity['start'] + 1,
-                    "end": entity['end']
-                })
+            #print(entity["text"], "=>", entity["label"])
+            returned_entities.append({
+                "label": entity['label'],
+                "score": float(entity['score']),
+                "text": entity['text'],
+                "start": entity['start'],
+                "end": entity['end']
+            })
 
         return returned_entities, 200
 
