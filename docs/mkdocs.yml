@@ -1,0 +1,17 @@
+site_name: PhEye
+repo_url: https://github.com/philterd/ph-eye
+site_url: https://philterd.github.io/ph-eye/
+edit_uri: '?query=docs/docs/'
+copyright: Copyright 2026 Philterd, LLC
+site_author: philterd
+site_description: User guide for Ph-Eye, a way to serve PII-focused LLMs.
+theme:
+  name: material
+  locale: en
+  palette:
+    primary: red
+nav:
+  - Overview: index.md
+  - Installation: installation.md
+  - API Usage: usage.md
+  - Development: development.md

@@ -4,6 +4,8 @@ ph-eye is a service for hosting AI/NLP models for the purposes of finding PII an
 
 Docker images are available at https://hub.docker.com/repository/docker/philterd/ph-eye.
 
+Documentation is available at https://philterd.github.io/ph-eye.
+
 Text can be sent to the service as:
 
 ```
