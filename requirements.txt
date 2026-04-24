@@ -1,3 +1,4 @@
-Flask==3.0.3
-gliner==0.2.13
+Flask==3.1.2
+gliner==0.2.22
 waitress~=3.0.2
+
