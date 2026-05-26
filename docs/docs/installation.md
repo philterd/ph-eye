@@ -24,6 +24,12 @@ GPU-enabled images require the [NVIDIA Container Toolkit](https://docs.nvidia.co
 docker run --gpus all -p 5000:5000 philterd/ph-eye:1.2.5-pii_base-gpu
 ```
 
+To run all models together using Docker Compose:
+
+```bash
+docker compose -f docker-compose.gpu.yaml up
+```
+
 See the [Developer Guide](development.md#building-docker-images) for instructions on building GPU images.
 
 ## Building from source

@@ -27,7 +27,7 @@ This guide provides information for developers who want to build, test, or contr
 The `build-docker-image.sh` script reads the version from `app.py` and builds one CPU image and one GPU image per model:
 
 ```bash
-./build-docker-image.sh
+./build-docker-images.sh
 ```
 
 This produces tags of the form `philterd/ph-eye:<version>-<model>` (CPU) and `philterd/ph-eye:<version>-<model>-gpu` (GPU). All images are pushed to the same Docker Hub repository.
