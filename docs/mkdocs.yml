@@ -2,9 +2,9 @@ site_name: PhEye
 repo_url: https://github.com/philterd/ph-eye
 site_url: https://philterd.github.io/ph-eye/
 edit_uri: '?query=docs/docs/'
-copyright: Copyright 2026 Philterd, LLC
+copyright: Copyright 2024-2026 Philterd, LLC
 site_author: philterd
-site_description: User guide for Ph-Eye, a way to serve PII-focused LLMs.
+site_description: User guide for Ph-Eye, a service for finding PII and PHI in text using AI/NLP models.
 theme:
   name: material
   locale: en

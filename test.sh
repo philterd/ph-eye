@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# Build the images: ./build-docker-images.sh
+# Run them: docker compose up
+# Now run this script: ./tests.sh
+
 assert_contains() {
     local response="$1"
     local expected="$2"
