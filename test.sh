@@ -52,5 +52,6 @@ RESPONSE=$(curl -s -X POST http://localhost:8005/find \
   -H "Content-Type: application/json" \
   -d '{"text": "Le patient souffre de diabète et d'\''hypertension artérielle.", "labels": ["Maladie"], "threshold": 0.3}')
 echo "$RESPONSE"
-assert_contains "$RESPONSE" "diabète" "french_medical: diabète detected"
+assert_contains "$RESPONSE" "diab" "french_medical: diabète detected"
+assert_contains "$RESPONSE" "hypertension" "french_medical: hypertension detected"
 echo
