@@ -4,27 +4,34 @@ Ph-Eye can be run using Docker or directly from the source code.
 
 ## Running with Docker
 
-The easiest way to run Ph-Eye is using the official Docker image.
-
-### Pull and Run
-
-```bash
-docker run -p 5000:5000 philterd/ph-eye:latest
-```
-
-Note: The container internally listens on port 5000 by default (via `run.sh`).
-
-### Environment Variables
-
-- `MODEL_NAME`: The name of the GLiNER model to use. Defaults to `philterd/ph-eye-pii-base`.
-
-Example:
+The easiest way to run Ph-Eye is using an official Docker image. Each image bundles a specific model — select the tag
+that matches your use case.
 
 ```bash
-docker run -p 5000:5000 -e MODEL_NAME="philterd/ph-eye-pii-base" philterd/ph-eye:latest
+docker run -p 5000:5000 philterd/ph-eye:1.2.5-pii_base
 ```
 
-## Running from Source
+The model is baked into the image at build time. No environment variables are needed to select or configure the model at
+runtime.
+
+See [Available models](index.md#available-models) for the full list of image tags.
+
+## Running with Docker (GPU)
+
+GPU-enabled images require the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) on the host. Use the `-gpu` image tag and pass `--gpus all`:
+
+```bash
+docker run --gpus all -p 5000:5000 philterd/ph-eye:1.2.5-pii_base-gpu
+```
+
+See the [Developer Guide](development.md#building-docker-images) for instructions on building GPU images.
+
+## Building from source
+
+If you need a model not covered by the official images, you can build your own. See
+the [Developer Guide](development.md#building-docker-images) for instructions.
+
+## Running from source
 
 ### Prerequisites
 
@@ -35,7 +42,7 @@ docker run -p 5000:5000 -e MODEL_NAME="philterd/ph-eye-pii-base" philterd/ph-eye
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/philterd/phileas.git
+   git clone https://github.com/philterd/ph-eye.git
    cd ph-eye
    ```
 
@@ -44,9 +51,12 @@ docker run -p 5000:5000 -e MODEL_NAME="philterd/ph-eye-pii-base" philterd/ph-eye
    pip install -r requirements.txt
    ```
 
-3. Run the service:
+3. Set the model and run the service:
    ```bash
-   python app.py
+   PHEYE_MODEL=pii_base python app.py
    ```
 
 The service will be available at `http://localhost:5000`.
+
+Note: When running from source, the model is downloaded from Hugging Face on first startup and cached locally.
+Subsequent startups use the cached copy.

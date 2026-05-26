@@ -1,9 +1,19 @@
 #!/bin/bash -e
 
-VERSION=`cat app.py | grep "__version__" | head -1 | tr -d '__version__ = "'`
-MODEL_NAME=${1:-"philterd/ph-eye-pii-base"}
+VERSION=$(grep -m1 '__version__' app.py | sed 's/.*"\(.*\)".*/\1/')
 
-echo "Building ph-eye ${VERSION} with model ${MODEL_NAME}"
+MODELS=(pii_base hospitals medical_conditions french_persons french_medical)
 
-docker build --build-arg MODEL_NAME="${MODEL_NAME}" -t philterd/ph-eye:${VERSION} .
-docker tag philterd/ph-eye:${VERSION} philterd/ph-eye:latest
+for MODEL in "${MODELS[@]}"; do
+    TAG="philterd/ph-eye:${VERSION}-${MODEL}"
+    echo "Building ${TAG}..."
+    docker build --build-arg PHEYE_MODEL="${MODEL}" -t "${TAG}" .
+    echo "Built ${TAG}"
+done
+
+for MODEL in "${MODELS[@]}"; do
+    TAG="philterd/ph-eye:${VERSION}-${MODEL}-gpu"
+    echo "Building ${TAG}..."
+    docker build -f Dockerfile.gpu --build-arg PHEYE_MODEL="${MODEL}" -t "${TAG}" .
+    echo "Built ${TAG}"
+done

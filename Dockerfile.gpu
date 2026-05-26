@@ -1,4 +1,4 @@
-FROM python:3.12.6-slim-bullseye
+FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ ARG PHEYE_MODEL=pii_base
 ENV PHEYE_MODEL=${PHEYE_MODEL}
 
 COPY requirements.txt /app
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY models/ /app/models/
 COPY download_model.py /app

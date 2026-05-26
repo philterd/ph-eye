@@ -1,8 +1,56 @@
 #!/bin/bash -e
 
-curl -X POST http://localhost:5000/find \
-  -H "Content-Type: application/json" \
-  -d'{"text": "George Washington was president and he lived in Virginia.", "threshold": 0.50, "labels": ["Person", "Place"]}'
+assert_contains() {
+    local response="$1"
+    local expected="$2"
+    local label="$3"
+    if echo "$response" | grep -q "$expected"; then
+        echo "PASS: $label"
+    else
+        echo "FAIL: $label — expected '$expected' in response: $response"
+        exit 1
+    fi
+}
 
-# Long request:
-# curl -X POST http://localhost:18080/find -H "Content-Type: application/json" -d'{"text": "George Washington was a Founding Father of the United States, military officer, and farmer who served as the first president of the United States from 1789 to 1797. Appointed by the Second Continental Congress as commander of the Continental Army in 1775, Washington led Patriot forces to victory in the American Revolutionary War. He then served as president of the Constitutional Convention in 1787, which drafted the current Constitution of the United States. Washington has thus become commonly known as the Father of his Country. Washingtons first public office, from 1749 to 1750, was as surveyor of Culpeper County in the Colony of Virginia. In 1752, he received military training and was granted the rank of major in the Virginia Regiment. During the French and Indian War, Washington was promoted to lieutenant colonel in 1754 and subsequently became head of the Virginia Regiment in 1755. He was later elected to the Virginia House of Burgesses and was named a delegate to the Continental Congress in Philadelphia, which appointed him commander-in-chief of the Continental Army. Washington led American forces to a decisive victory over the British in the Revolutionary War, leading the British to sign the Treaty of Paris, which acknowledged the sovereignty and independence of the United States. He resigned his commission in 1783 after the conclusion of the Revolutionary War. Washington played an indispensable role in the drafting of the Constitution, which replaced the Articles of Confederation in 1789. He was then twice elected president unanimously by the Electoral College in 1788 and 1792. As the first U.S. president, Washington implemented a strong, well-financed national government while remaining impartial in a fierce rivalry that emerged between cabinet members Thomas Jefferson and Alexander Hamilton. During the French Revolution, he proclaimed a policy of neutrality while additionally sanctioning the Jay Treaty. He set enduring precedents for the office of president, including republicanism, a peaceful transfer of power, the use of the title Mr. President, and the two-term tradition. His 1796 farewell address became a preeminent statement on republicanism in which he wrote about the importance of national unity and the dangers that regionalism, partisanship, and foreign influence pose to it. As a planter of tobacco and wheat, Washington owned many slaves. He grew to oppose slavery near the end of his life, and provided in his will for the manumission of his slaves.  Washingtons image is an icon of American culture. He has been memorialized by monuments, a federal holiday, various media depictions, geographical locations including the national capital, the State of Washington, stamps, and currency. In 1976, Washington was posthumously promoted to the rank of general of the Armies, the highest rank in the U.S. Army. Washington consistently ranks in both popular and scholarly polls as one of the greatest presidents in American history. Abraham Lincoln was also president."}'
+echo "Testing pii_base (port 5001)..."
+RESPONSE=$(curl -s -X POST http://localhost:5001/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "George Washington was president and he lived in Virginia.", "labels": ["Person", "Place"], "threshold": 0.5}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "George Washington" "pii_base: person detected"
+assert_contains "$RESPONSE" "Virginia" "pii_base: place detected"
+echo
+
+echo "Testing hospitals (port 5002)..."
+RESPONSE=$(curl -s -X POST http://localhost:5002/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "The patient was admitted to St. Marys Hospital and assigned to room 204.", "labels": ["hospital", "room number"], "threshold": 0.0}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "hospital" "hospitals: hospital label present"
+assert_contains "$RESPONSE" "room" "hospitals: room number label present"
+echo
+
+echo "Testing medical_conditions (port 5003)..."
+RESPONSE=$(curl -s -X POST http://localhost:5003/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "The patient was diagnosed with diabetes and hypertension.", "labels": ["DISEASE_DISORDER"], "threshold": 0.0}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "diabetes" "medical_conditions: diabetes detected"
+assert_contains "$RESPONSE" "hypertension" "medical_conditions: hypertension detected"
+echo
+
+echo "Testing french_persons (port 5004)..."
+RESPONSE=$(curl -s -X POST http://localhost:5004/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Jean Dupont est arrivé à Paris hier soir.", "labels": ["person"], "threshold": 0.0}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "Jean Dupont" "french_persons: person detected"
+echo
+
+echo "Testing french_medical (port 5005)..."
+RESPONSE=$(curl -s -X POST http://localhost:5005/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Le patient souffre de diabète et d'\''hypertension artérielle.", "labels": ["Maladie"], "threshold": 0.3}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "diabète" "french_medical: diabète detected"
+echo
