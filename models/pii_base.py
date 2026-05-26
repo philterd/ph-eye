@@ -14,13 +14,12 @@
 
 import os
 
-from gliner import GLiNER
-
 DEFAULT_LABELS = ["Person"]
 DEFAULT_THRESHOLD = 0.5
 
 
 def load():
+    from gliner import GLiNER
     model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
     print(f"Loading model {model_name}...")
     model = GLiNER.from_pretrained(model_name)

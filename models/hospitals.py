@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gliner import GLiNER
-
 DEFAULT_LABELS = ["hospital", "room number"]
 DEFAULT_THRESHOLD = 0.0
 
 
 def load():
+    from gliner import GLiNER
     print("Loading model knowledgator/gliner-pii-base-v1.0...")
     model = GLiNER.from_pretrained("knowledgator/gliner-pii-base-v1.0")
     print("Model loaded successfully!")

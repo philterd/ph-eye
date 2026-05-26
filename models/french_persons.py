@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gliner import GLiNER
-
 DEFAULT_LABELS = ["person"]
 DEFAULT_THRESHOLD = 0.0
 
 
 def load():
+    from gliner import GLiNER
     print("Loading model EmergentMethods/gliner_medium_news-v2.1...")
     model = GLiNER.from_pretrained("EmergentMethods/gliner_medium_news-v2.1")
     print("Model loaded successfully!")

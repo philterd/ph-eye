@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gliner import GLiNER
-
 DEFAULT_LABELS = ["Maladie"]
 DEFAULT_THRESHOLD = 0.3
 
 
 def load():
+    from gliner import GLiNER
     print("Loading model almanach/camembert-bio-gliner-v0.1...")
     model = GLiNER.from_pretrained("almanach/camembert-bio-gliner-v0.1")
     print("Model loaded successfully!")

@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from transformers import pipeline
-
 DEFAULT_LABELS = ["DISEASE_DISORDER"]
 DEFAULT_THRESHOLD = 0.0
 
 
 def load():
+    from transformers import pipeline
     print("Loading model blaze999/Medical-NER...")
     model = pipeline("token-classification", model="blaze999/Medical-NER", aggregation_strategy="simple")
     print("Model loaded successfully!")
