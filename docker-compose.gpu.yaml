@@ -3,7 +3,7 @@ services:
   pii-base:
     image: philterd/ph-eye:1.2.5-pii_base-gpu
     ports:
-      - "5001:5000"
+      - "8001:5000"
     deploy:
       resources:
         reservations:
@@ -15,7 +15,7 @@ services:
   hospitals:
     image: philterd/ph-eye:1.2.5-hospitals-gpu
     ports:
-      - "5002:5000"
+      - "8002:5000"
     deploy:
       resources:
         reservations:
@@ -27,7 +27,7 @@ services:
   medical-conditions:
     image: philterd/ph-eye:1.2.5-medical_conditions-gpu
     ports:
-      - "5003:5000"
+      - "8003:5000"
     deploy:
       resources:
         reservations:
@@ -39,7 +39,7 @@ services:
   french-persons:
     image: philterd/ph-eye:1.2.5-french_persons-gpu
     ports:
-      - "5004:5000"
+      - "8004:5000"
     deploy:
       resources:
         reservations:
@@ -51,7 +51,7 @@ services:
   french-medical:
     image: philterd/ph-eye:1.2.5-french_medical-gpu
     ports:
-      - "5005:5000"
+      - "8005:5000"
     deploy:
       resources:
         reservations:

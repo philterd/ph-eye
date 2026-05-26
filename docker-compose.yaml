@@ -3,24 +3,24 @@ services:
   pii-base:
     image: philterd/ph-eye:1.2.5-pii_base
     ports:
-      - "5001:5000"
+      - "8001:5000"
 
   hospitals:
     image: philterd/ph-eye:1.2.5-hospitals
     ports:
-      - "5002:5000"
+      - "8002:5000"
 
   medical-conditions:
     image: philterd/ph-eye:1.2.5-medical_conditions
     ports:
-      - "5003:5000"
+      - "8003:5000"
 
   french-persons:
     image: philterd/ph-eye:1.2.5-french_persons
     ports:
-      - "5004:5000"
+      - "8004:5000"
 
   french-medical:
     image: philterd/ph-eye:1.2.5-french_medical
     ports:
-      - "5005:5000"
+      - "8005:5000"
