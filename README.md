@@ -39,6 +39,13 @@ docker build --build-arg PHEYE_MODEL=french_medical      -t pheye:1.2.5-french-m
 docker run -p 5000:5000 pheye:1.2.5-pii-base
 ```
 
+To run all models together using Docker Compose:
+
+```bash
+docker compose up                        # CPU
+docker compose -f docker-compose.gpu.yaml up   # GPU
+```
+
 Check that the service is up:
 
 ```bash
