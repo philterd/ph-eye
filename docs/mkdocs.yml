@@ -10,6 +10,10 @@ theme:
   locale: en
   palette:
     primary: red
+  custom_dir: overrides
+extra:
+  version:
+    provider: mike
 nav:
   - Overview: index.md
   - Installation: installation.md

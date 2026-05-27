@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 permissions:
   contents: write
 jobs:
@@ -10,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
@@ -26,5 +30,18 @@ jobs:
             mkdocs-material-
       - run: pip install -r requirements.txt
         working-directory: ./docs
-      - run: mkdocs gh-deploy --force
+      - name: Extract version
+        id: version
+        run: echo "version=$(python -c "import re; print(re.search(r'__version__\s*=\s*\"(.+?)\"', open('app.py').read()).group(1))")" >> $GITHUB_OUTPUT
+      - name: Deploy docs (release)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: mike deploy ${{ steps.version.outputs.version }} latest --update-aliases --push
+        working-directory: ./docs
+      - name: Deploy docs (dev)
+        if: github.ref == 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/')
+        run: mike deploy dev --push
+        working-directory: ./docs
+      - name: Set default version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: mike set-default latest --push
         working-directory: ./docs
