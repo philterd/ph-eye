@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://philterd.github.io/ph-eye/latest/sitemap.xml
