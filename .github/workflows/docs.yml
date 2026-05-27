@@ -45,3 +45,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: mike set-default latest --push
         working-directory: ./docs
+      - name: Add robots.txt
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          printf "User-agent: *\nAllow: /\n\nSitemap: https://philterd.github.io/ph-eye/latest/sitemap.xml\n" > robots.txt
+          git add robots.txt
+          git diff --cached --quiet || git commit -m "Update robots.txt" && git push origin gh-pages
+          git checkout -
