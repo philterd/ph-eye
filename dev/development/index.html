@@ -556,10 +556,10 @@
 </code></pre>
 <p>This produces tags of the form <code>philterd/ph-eye:&lt;version&gt;-&lt;model&gt;</code> (CPU) and <code>philterd/ph-eye:&lt;version&gt;-&lt;model&gt;-gpu</code> (GPU). All images are pushed to the same Docker Hub repository.</p>
 <p>To build a single CPU image manually:</p>
-<pre><code class="language-bash">docker build --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.2.5-hospitals .
+<pre><code class="language-bash">docker build --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.3.0-hospitals .
 </code></pre>
 <p>To build a single GPU image manually:</p>
-<pre><code class="language-bash">docker build -f Dockerfile.gpu --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.2.5-hospitals-gpu .
+<pre><code class="language-bash">docker build -f Dockerfile.gpu --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.3.0-hospitals-gpu .
 </code></pre>
 <p>The GPU image uses <code>pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime</code> as its base, which provides CUDA 12.1, cuDNN 8, and PyTorch pre-installed. Running a GPU image requires the <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit</a> on the host and the <code>--gpus all</code> flag.</p>
 <p>The build process (both CPU and GPU):</p>
@@ -606,8 +606,13 @@
 </tr>
 <tr>
 <td><code>MODEL_NAME</code></td>
-<td><code>models/pii_base.py</code></td>
-<td>Overrides the default Hugging Face model name for the <code>pii_base</code> module only.</td>
+<td><code>pii_en_small</code>, <code>pii_base</code></td>
+<td>Overrides the default Hugging Face model name for the model module in use.</td>
+</tr>
+<tr>
+<td><code>MODEL_REVISION</code></td>
+<td><code>pii_en_small</code></td>
+<td>Overrides the pinned Hugging Face revision for the <code>pii_en_small</code> module.</td>
 </tr>
 </tbody>
 </table>
