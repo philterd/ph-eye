@@ -5,6 +5,7 @@
 - Added the rest of the English name model size ladder as selectable models: `pii_en_xsmall`, `pii_en_medium`, and `pii_en_large` (alongside the default `pii_en_small`). All use the label `name` with size-specific default thresholds (0.50, 0.90, 0.70, 0.95 for xsmall, small, medium, large).
 - Pinned the Hugging Face revision for each `ph-eye-pii-en-*` model so Docker builds are reproducible and air-gapped at runtime. A new `MODEL_REVISION` environment variable can override it.
 - Deprecated the `pii_base` model module. It still loads `ph-eye-pii-base` when explicitly selected with `PHEYE_MODEL=pii_base`, but it is no longer the default and may be removed in a future release. To keep the previous behavior temporarily, pin `PHEYE_MODEL=pii_base`.
+- The `latest` Docker tag (and `latest-gpu`) now points at the default `pii_en_small` model, so `docker pull philterd/ph-eye` gets the new default English model.
 
 ## 1.2.5 (2026-05-26)
 
