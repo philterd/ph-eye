@@ -18,11 +18,11 @@ import os
 from flask import Flask, request
 from waitress import serve
 
-__version__ = "1.2.5"
+__version__ = "1.3.0"
 
 app = Flask(__name__)
 
-model_id = os.environ.get("PHEYE_MODEL", "pii_base")
+model_id = os.environ.get("PHEYE_MODEL", "pii_en_small")
 print(f"Starting ph-eye version {__version__} with model '{model_id}'")
 
 model_module = importlib.import_module(f"models.{model_id}")

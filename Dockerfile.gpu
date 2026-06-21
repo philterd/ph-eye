@@ -2,7 +2,7 @@ FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
 WORKDIR /app
 
-ARG PHEYE_MODEL=pii_base
+ARG PHEYE_MODEL=pii_en_small
 ENV PHEYE_MODEL=${PHEYE_MODEL}
 
 COPY requirements.txt /app

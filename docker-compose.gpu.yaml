@@ -1,7 +1,55 @@
 services:
 
+  pii-en-small:
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-pii_en_small-gpu
+    ports:
+      - "8006:5000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  pii-en-xsmall:
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-pii_en_xsmall-gpu
+    ports:
+      - "8007:5000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  pii-en-medium:
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-pii_en_medium-gpu
+    ports:
+      - "8008:5000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  pii-en-large:
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-pii_en_large-gpu
+    ports:
+      - "8009:5000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
   pii-base:
-    image: philterd/ph-eye:${PHEYE_VERSION:-1.2.5}-pii_base-gpu
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-pii_base-gpu
     ports:
       - "8001:5000"
     deploy:
@@ -13,7 +61,7 @@ services:
               capabilities: [gpu]
 
   hospitals:
-    image: philterd/ph-eye:${PHEYE_VERSION:-1.2.5}-hospitals-gpu
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-hospitals-gpu
     ports:
       - "8002:5000"
     deploy:
@@ -25,7 +73,7 @@ services:
               capabilities: [gpu]
 
   medical-conditions:
-    image: philterd/ph-eye:${PHEYE_VERSION:-1.2.5}-medical_conditions-gpu
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-medical_conditions-gpu
     ports:
       - "8003:5000"
     deploy:
@@ -37,7 +85,7 @@ services:
               capabilities: [gpu]
 
   french-persons:
-    image: philterd/ph-eye:${PHEYE_VERSION:-1.2.5}-french_persons-gpu
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-french_persons-gpu
     ports:
       - "8004:5000"
     deploy:
@@ -49,7 +97,7 @@ services:
               capabilities: [gpu]
 
   french-medical:
-    image: philterd/ph-eye:${PHEYE_VERSION:-1.2.5}-french_medical-gpu
+    image: philterd/ph-eye:${PHEYE_VERSION:-1.3.0}-french_medical-gpu
     ports:
       - "8005:5000"
     deploy:

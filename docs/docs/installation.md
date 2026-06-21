@@ -8,7 +8,7 @@ The easiest way to run Ph-Eye is using an official Docker image. Each image bund
 that matches your use case.
 
 ```bash
-docker run -p 5000:5000 philterd/ph-eye:1.2.5-pii_base
+docker run -p 5000:5000 philterd/ph-eye:1.3.0-pii_en_small
 ```
 
 The model is baked into the image at build time. No environment variables are needed to select or configure the model at
@@ -21,7 +21,7 @@ See [Available models](index.md#available-models) for the full list of image tag
 GPU-enabled images require the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) on the host. Use the `-gpu` image tag and pass `--gpus all`:
 
 ```bash
-docker run --gpus all -p 5000:5000 philterd/ph-eye:1.2.5-pii_base-gpu
+docker run --gpus all -p 5000:5000 philterd/ph-eye:1.3.0-pii_en_small-gpu
 ```
 
 To run all models together using Docker Compose:
@@ -59,7 +59,7 @@ the [Developer Guide](development.md#building-docker-images) for instructions.
 
 3. Set the model and run the service:
    ```bash
-   PHEYE_MODEL=pii_base python app.py
+   PHEYE_MODEL=pii_en_small python app.py
    ```
 
 The service will be available at `http://localhost:5000`.

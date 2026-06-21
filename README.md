@@ -12,13 +12,19 @@ and [Philter](https://github.com/philterd/philter), though it can also be used s
 Each Docker image bundles a single model, selected at build time. Images are air-gapped — the model is downloaded into
 the image during `docker build` and no network access is required at runtime.
 
-| `PHEYE_MODEL`        | Language | Entities                            | Underlying model                          |
-|----------------------|----------|-------------------------------------|-------------------------------------------|
-| `pii_base`           | English  | General PII (person, place, org, …) | [`philterd/ph-eye-pii-base`](https://huggingface.co/philterd/ph-eye-pii-base)                |
-| `hospitals`          | English  | Hospital, room number               | [`knowledgator/gliner-pii-base-v1.0`](https://huggingface.co/knowledgator/gliner-pii-base-v1.0)       |
-| `medical_conditions` | English  | Disease/disorder                    | [`blaze999/Medical-NER`](https://huggingface.co/blaze999/Medical-NER)                    |
-| `french_persons`     | French   | Person                              | [`EmergentMethods/gliner_medium_news-v2.1`](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1) |
-| `french_medical`     | French   | Disease (`Maladie`)                 | [`almanach/camembert-bio-gliner-v0.1`](https://huggingface.co/almanach/camembert-bio-gliner-v0.1)      |
+| `PHEYE_MODEL`             | Language | Entities                       | Underlying model                          |
+|---------------------------|----------|--------------------------------|-------------------------------------------|
+| `pii_en_small` (default)  | English  | Person names (label `name`)    | [`philterd/ph-eye-pii-en-small`](https://huggingface.co/philterd/ph-eye-pii-en-small)        |
+| `pii_en_xsmall`           | English  | Person names (label `name`)    | [`philterd/ph-eye-pii-en-xsmall`](https://huggingface.co/philterd/ph-eye-pii-en-xsmall)      |
+| `pii_en_medium`           | English  | Person names (label `name`)    | [`philterd/ph-eye-pii-en-medium`](https://huggingface.co/philterd/ph-eye-pii-en-medium)      |
+| `pii_en_large`            | English  | Person names (label `name`)    | [`philterd/ph-eye-pii-en-large`](https://huggingface.co/philterd/ph-eye-pii-en-large)        |
+| `pii_base` (deprecated)   | English  | Person names (label `Person`)  | [`philterd/ph-eye-pii-base`](https://huggingface.co/philterd/ph-eye-pii-base)                |
+| `hospitals`               | English  | Hospital, room number          | [`knowledgator/gliner-pii-base-v1.0`](https://huggingface.co/knowledgator/gliner-pii-base-v1.0)       |
+| `medical_conditions`      | English  | Disease/disorder               | [`blaze999/Medical-NER`](https://huggingface.co/blaze999/Medical-NER)                    |
+| `french_persons`          | French   | Person                         | [`EmergentMethods/gliner_medium_news-v2.1`](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1) |
+| `french_medical`          | French   | Disease (`Maladie`)            | [`almanach/camembert-bio-gliner-v0.1`](https://huggingface.co/almanach/camembert-bio-gliner-v0.1)      |
+
+`pii_en_small` is the default when `PHEYE_MODEL` is not set. The English name models come in four sizes (`pii_en_xsmall`, `pii_en_small`, `pii_en_medium`, `pii_en_large`) that trade speed for accuracy; each has its own recommended default threshold (0.50, 0.90, 0.70, and 0.95 respectively). `pii_base` is deprecated and remains available only when explicitly selected.
 
 ## Building
 
@@ -26,17 +32,21 @@ Pass `PHEYE_MODEL` as a build argument to select the model. The model is downloa
 the image at build time.
 
 ```bash
-docker build --build-arg PHEYE_MODEL=pii_base            -t pheye:1.2.5-pii-base .
-docker build --build-arg PHEYE_MODEL=hospitals           -t pheye:1.2.5-hospitals .
-docker build --build-arg PHEYE_MODEL=medical_conditions  -t pheye:1.2.5-medical-conditions .
-docker build --build-arg PHEYE_MODEL=french_persons      -t pheye:1.2.5-french-persons .
-docker build --build-arg PHEYE_MODEL=french_medical      -t pheye:1.2.5-french-medical .
+docker build --build-arg PHEYE_MODEL=pii_en_small        -t pheye:1.3.0-pii-en-small .
+docker build --build-arg PHEYE_MODEL=pii_en_xsmall       -t pheye:1.3.0-pii-en-xsmall .
+docker build --build-arg PHEYE_MODEL=pii_en_medium       -t pheye:1.3.0-pii-en-medium .
+docker build --build-arg PHEYE_MODEL=pii_en_large        -t pheye:1.3.0-pii-en-large .
+docker build --build-arg PHEYE_MODEL=pii_base            -t pheye:1.3.0-pii-base .
+docker build --build-arg PHEYE_MODEL=hospitals           -t pheye:1.3.0-hospitals .
+docker build --build-arg PHEYE_MODEL=medical_conditions  -t pheye:1.3.0-medical-conditions .
+docker build --build-arg PHEYE_MODEL=french_persons      -t pheye:1.3.0-french-persons .
+docker build --build-arg PHEYE_MODEL=french_medical      -t pheye:1.3.0-french-medical .
 ```
 
 ## Running
 
 ```bash
-docker run -p 5000:5000 pheye:1.2.5-pii-base
+docker run -p 5000:5000 pheye:1.3.0-pii-en-small
 ```
 
 To run all models together using Docker Compose:
@@ -62,32 +72,33 @@ Find entities in text. `labels` and `threshold` are optional — defaults are mo
 
 ```json
 {
-  "text": "George Washington was president and he lived in Virginia.",
+  "text": "Please forward the invoice to Toni Levine and copy Maria Gonzalez.",
   "labels": [
-    "Person",
-    "Place"
+    "name"
   ],
-  "threshold": 0.5
+  "threshold": 0.9
 }
 ```
+
+The default `pii_en_small` model uses the label `name` and a threshold of `0.9`. Omit `labels` and `threshold` to use the model defaults.
 
 **Response**
 
 ```json
 [
   {
-    "label": "Person",
-    "text": "George Washington",
-    "score": 0.9923100471496582,
-    "start": 0,
-    "end": 17
+    "label": "name",
+    "text": "Toni Levine",
+    "score": 0.9712,
+    "start": 30,
+    "end": 41
   },
   {
-    "label": "Place",
-    "text": "Virginia",
-    "score": 0.9528881907463074,
-    "start": 48,
-    "end": 56
+    "label": "name",
+    "text": "Maria Gonzalez",
+    "score": 0.9685,
+    "start": 51,
+    "end": 65
   }
 ]
 ```

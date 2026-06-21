@@ -12,24 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DEPRECATED: superseded by "pii_en_small" as the default English model. This
-# module still loads philterd/ph-eye-pii-base when explicitly selected with
-# PHEYE_MODEL=pii_base, but it is no longer the default and may be removed in a
-# future release. New deployments should use pii_en_small.
+# English PII name model, large. Detects person names using the single label
+# "name". The most accurate (and heaviest) of the English name models.
 
 import os
 
-DEFAULT_LABELS = ["Person"]
-DEFAULT_THRESHOLD = 0.5
+DEFAULT_LABELS = ["name"]
+DEFAULT_THRESHOLD = 0.95
+
+DEFAULT_MODEL = "philterd/ph-eye-pii-en-large"
+# Pin a specific Hugging Face revision so Docker builds are reproducible and the
+# air-gapped runtime always bundles the same weights.
+DEFAULT_REVISION = "c4ae3088c59dcdd683c26af2dbb66e0f40eba02d"
 
 
 def load():
     from gliner import GLiNER
-    print("WARNING: the 'pii_base' model is deprecated; the default English model "
-          "is now 'pii_en_small' (philterd/ph-eye-pii-en-small).")
-    model_name = os.getenv("MODEL_NAME", "philterd/ph-eye-pii-base")
-    print(f"Loading model {model_name}...")
-    model = GLiNER.from_pretrained(model_name)
+    model_name = os.getenv("MODEL_NAME", DEFAULT_MODEL)
+    revision = os.getenv("MODEL_REVISION") or (
+        DEFAULT_REVISION if model_name == DEFAULT_MODEL else None
+    )
+    print(f"Loading model {model_name} (revision {revision or 'main'})...")
+    model = GLiNER.from_pretrained(model_name, revision=revision)
     print("Model loaded successfully!")
     return model
 

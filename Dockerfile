@@ -2,7 +2,7 @@ FROM python:3.12.6-slim-bullseye
 
 WORKDIR /app
 
-ARG PHEYE_MODEL=pii_base
+ARG PHEYE_MODEL=pii_en_small
 ENV PHEYE_MODEL=${PHEYE_MODEL}
 
 COPY requirements.txt /app

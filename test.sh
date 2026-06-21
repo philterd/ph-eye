@@ -16,6 +16,39 @@ assert_contains() {
     fi
 }
 
+echo "Testing pii_en_small (port 8006)..."
+RESPONSE=$(curl -s -X POST http://localhost:8006/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "George Washington was president and he lived in Virginia.", "labels": ["name"], "threshold": 0.9}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "George Washington" "pii_en_small: name detected"
+assert_contains "$RESPONSE" '"label": "name"' "pii_en_small: uses the 'name' label"
+echo
+
+echo "Testing pii_en_xsmall (port 8007)..."
+RESPONSE=$(curl -s -X POST http://localhost:8007/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "George Washington was president and he lived in Virginia.", "labels": ["name"], "threshold": 0.5}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "George Washington" "pii_en_xsmall: name detected"
+echo
+
+echo "Testing pii_en_medium (port 8008)..."
+RESPONSE=$(curl -s -X POST http://localhost:8008/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "George Washington was president and he lived in Virginia.", "labels": ["name"], "threshold": 0.7}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "George Washington" "pii_en_medium: name detected"
+echo
+
+echo "Testing pii_en_large (port 8009)..."
+RESPONSE=$(curl -s -X POST http://localhost:8009/find \
+  -H "Content-Type: application/json" \
+  -d '{"text": "George Washington was president and he lived in Virginia.", "labels": ["name"], "threshold": 0.95}')
+echo "$RESPONSE"
+assert_contains "$RESPONSE" "George Washington" "pii_en_large: name detected"
+echo
+
 echo "Testing pii_base (port 8001)..."
 RESPONSE=$(curl -s -X POST http://localhost:8001/find \
   -H "Content-Type: application/json" \
