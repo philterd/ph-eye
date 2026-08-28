@@ -56,10 +56,11 @@ def reset_mock():
 
 # --- /status ---
 
-def test_status_returns_healthy(client):
+def test_status_returns_standard_health_response(client):
     response = client.get("/status")
     assert response.status_code == 200
-    assert response.data == b"healthy"
+    assert response.is_json
+    assert response.get_json() == {"status": "UP", "applicationVersion": "1.3.0"}
 
 
 # --- /find ---

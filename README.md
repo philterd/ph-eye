@@ -105,7 +105,14 @@ The default `pii_en_small` model uses the label `name` and a threshold of `0.9`.
 
 ### `GET /status`
 
-Returns `healthy` when the service is running and the model is loaded.
+Returns a standard JSON health response when the service is running and the model is loaded.
+
+```json
+{
+  "status": "UP",
+  "applicationVersion": "1.3.0"
+}
+```
 
 ## License
 

@@ -15,7 +15,7 @@
 import importlib
 import os
 
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from waitress import serve
 
 __version__ = "1.3.0"
@@ -32,7 +32,7 @@ print("Model loaded and ready to serve requests")
 
 @app.route("/status", methods=["GET"])
 def status():
-    return "healthy"
+    return jsonify(status="UP", applicationVersion=__version__)
 
 
 @app.route("/find", methods=["POST"])
