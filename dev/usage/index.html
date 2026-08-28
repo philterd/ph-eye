@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -592,12 +592,15 @@
 <p>Ph-Eye provides two endpoints: <code>GET /status</code> and <code>POST /find</code>.</p>
 <h2 id="health-check">Health check</h2>
 <p><strong>Endpoint:</strong> <code>GET /status</code></p>
-<p>Returns <code>healthy</code> when the service is running and the model is loaded.</p>
+<p>Returns a standard JSON health response when the service is running and the model is loaded.</p>
 <p><strong>Example request:</strong></p>
 <pre><code class="language-bash">curl http://localhost:5000/status
 </code></pre>
 <p><strong>Example response:</strong></p>
-<pre><code>healthy
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;UP&quot;,
+  &quot;applicationVersion&quot;: &quot;1.3.0&quot;
+}
 </code></pre>
 <h2 id="find-entities">Find entities</h2>
 <p><strong>Endpoint:</strong> <code>POST /find</code></p>
@@ -754,7 +757,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
