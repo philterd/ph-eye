@@ -1,17 +1,17 @@
 # API Usage
 
-Ph-Eye provides two endpoints: `GET /status` and `POST /find`.
+Ph-Eye provides two endpoints: `GET /health` and `POST /find`.
 
 ## Health check
 
-**Endpoint:** `GET /status`
+**Endpoint:** `GET /health`
 
 Returns a standard JSON health response when the service is running and the model is loaded.
 
 **Example request:**
 
 ```bash
-curl http://localhost:5000/status
+curl http://localhost:5000/health
 ```
 
 **Example response:**

@@ -30,8 +30,8 @@ model = model_module.load()
 print("Model loaded and ready to serve requests")
 
 
-@app.route("/status", methods=["GET"])
-def status():
+@app.route("/health", methods=["GET"])
+def health():
     return jsonify(status="UP", applicationVersion=__version__)
 
 
