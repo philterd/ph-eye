@@ -589,12 +589,12 @@
 
 
 <h1 id="api-usage">API Usage</h1>
-<p>Ph-Eye provides two endpoints: <code>GET /status</code> and <code>POST /find</code>.</p>
+<p>Ph-Eye provides two endpoints: <code>GET /health</code> and <code>POST /find</code>.</p>
 <h2 id="health-check">Health check</h2>
-<p><strong>Endpoint:</strong> <code>GET /status</code></p>
+<p><strong>Endpoint:</strong> <code>GET /health</code></p>
 <p>Returns a standard JSON health response when the service is running and the model is loaded.</p>
 <p><strong>Example request:</strong></p>
-<pre><code class="language-bash">curl http://localhost:5000/status
+<pre><code class="language-bash">curl http://localhost:5000/health
 </code></pre>
 <p><strong>Example response:</strong></p>
 <pre><code class="language-json">{
