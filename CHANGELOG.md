@@ -1,4 +1,9 @@
-## 1.3.0 (unreleased)
+## Unreleased
+
+- Changed the health check response from the plain string `healthy` to a JSON body (`{"status": "UP", "applicationVersion": "..."}`).
+- Renamed the health check endpoint from `/status` to `/health`.
+
+## 1.3.0 (2026-06-21)
 
 - Changed the default English PII model to `pii_en_small` (`philterd/ph-eye-pii-en-small`), superseding `pii_base` (`philterd/ph-eye-pii-base`). The new model detects person names using the single label `name` at a default threshold of `0.90`.
 - Because this is a different statistical model, detections on identical input will differ from `ph-eye-pii-base`: which names are found (in both directions), entity boundaries, the label string (`name` instead of `Person`), and confidence scores. This is expected when changing a detector, not a bug. Re-validate against representative data from your own pipeline rather than assuming parity.
@@ -6,7 +11,6 @@
 - Pinned the Hugging Face revision for each `ph-eye-pii-en-*` model so Docker builds are reproducible and air-gapped at runtime. A new `MODEL_REVISION` environment variable can override it.
 - Deprecated the `pii_base` model module. It still loads `ph-eye-pii-base` when explicitly selected with `PHEYE_MODEL=pii_base`, but it is no longer the default and may be removed in a future release. To keep the previous behavior temporarily, pin `PHEYE_MODEL=pii_base`.
 - The `latest` Docker tag (and `latest-gpu`) now points at the default `pii_en_small` model, so `docker pull philterd/ph-eye` gets the new default English model.
-- Renamed the health check endpoint from `/status` to `/health`.
 
 ## 1.2.5 (2026-05-26)
 
@@ -75,6 +79,7 @@ The hospitals model (`knowledgator/gliner-pii-base-v1.0`) and the French persons
 (`EmergentMethods/gliner_medium_news-v2.1`) were released from those branches, not from
 `main`.
 
-The 1.2.3 and 1.2.5 tags were created retroactively at the last commit carrying each
-version in `app.py`. The dates shown are that commit's date, not a confirmed publish date;
-no tag recorded which tree each published image was built from.
+The 1.2.3, 1.2.5, and 1.3.0 tags were created retroactively. 1.2.3 and 1.2.5 point at the
+last commit carrying each version in `app.py`, so their dates are that commit's date rather
+than a confirmed publish date. 1.3.0 points at `c4f2a71`, the last commit before the
+`1.3.0-*` images were pushed on 2026-06-21. 1.2.5 was never published to `philterd/ph-eye`.
