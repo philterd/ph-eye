@@ -14,21 +14,19 @@
 - Added support for all models in a single Docker image build process controlled by the `PHEYE_MODEL` build argument.
 - Added models: `medical_conditions` (English disease/disorder via `blaze999/Medical-NER`) and `french_medical` (French disease via `almanach/camembert-bio-gliner-v0.1`).
 - Added `docker-compose.yaml` with a service per model.
-- Updated GLiNER to 0.2.26.
-- Updated Flask to 3.1.3.
 - Added `Dockerfile.gpu` for GPU-enabled deployments using `pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime` as the base image.
+- Pinned `transformers` explicitly for the first time, ending the release at `transformers[torch]==5.1.0`. GLiNER had previously selected it transitively.
+- Pinned `waitress` to an exact version (`==3.0.2`).
 
-## 1.2.4 (2026-02-04)
+## 1.2.4
 
-- Added French persons model (`EmergentMethods/gliner_medium_news-v2.1`) for person entity detection in French text.
-- Improved threshold handling and entity offset behavior.
+Not a release of this image. Version 1.2.4 belongs to `philterd/ph-eye-fr-persons`, which was built from its own branch. See "Model variant images" below.
 
-## 1.2.3 (2026-02-22)
+## 1.2.3 (2026-05-26)
 
-- Added hospitals model (`knowledgator/gliner-pii-base-v1.0`) for hospital and room number detection.
-- Added waitress as the production WSGI server.
-- Added error handling to the `/find` endpoint.
-- Improved startup log output.
+- Added documentation.
+- Updated Flask to 3.1.3.
+- Updated GLiNER to 0.2.26.
 
 ## 1.2.2 (2025-11-02)
 
@@ -58,3 +56,25 @@
 - Dockerized with build-time model download.
 - Configurable model via `MODEL_NAME` environment variable.
 - Default label fallback when no labels are provided.
+
+## Model variant images
+
+Before the 1.2.5 consolidation, each model shipped from its own branch to its own Docker
+repository. Version numbers were per repository and independent of `philterd/ph-eye`, so
+the same number can appear on more than one image. Those branches are archived under the
+`archive/*` tags.
+
+| Image | Version | Archived branch | Last commit |
+| --- | --- | --- | --- |
+| `philterd/ph-eye-medical-conditions` | 1.2.3 | `archive/medical-conditions` | `f57197c` (2026-01-20) |
+| `philterd/ph-eye-fr-medical` | 1.2.3 | `archive/french-medical` | `1f8bd25` (2026-02-04) |
+| `philterd/ph-eye-fr-persons` | 1.2.4 | `archive/french-persons` | `87f5c6a` (2026-02-24) |
+| `philterd/ph-eye-hospitals` | 1.2.5 | `archive/hospitals` | `a75522c` (2026-02-24) |
+
+The hospitals model (`knowledgator/gliner-pii-base-v1.0`) and the French persons model
+(`EmergentMethods/gliner_medium_news-v2.1`) were released from those branches, not from
+`main`.
+
+The 1.2.3 and 1.2.5 tags were created retroactively at the last commit carrying each
+version in `app.py`. The dates shown are that commit's date, not a confirmed publish date;
+no tag recorded which tree each published image was built from.
