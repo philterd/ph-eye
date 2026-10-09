@@ -6,6 +6,7 @@ and [Philter](https://github.com/philterd/philter), though it can also be used s
 
 - Docker images: https://hub.docker.com/repository/docker/philterd/ph-eye
 - Documentation: https://philterd.github.io/ph-eye
+- Community: users and developers are invited to [join the Philterd Slack workspace](https://philterd.ai/slack/) to ask questions, share feedback, and discuss ph-eye.
 
 ## Available models
 
