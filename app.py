@@ -18,6 +18,7 @@ import os
 from flask import Flask, jsonify, request
 from waitress import serve
 
+import device
 import windowing
 
 __version__ = "1.4.0"
@@ -28,9 +29,9 @@ model_id = os.environ.get("PHEYE_MODEL", "pii_en_small")
 print(f"Starting ph-eye version {__version__} with model '{model_id}'")
 
 model_module = importlib.import_module(f"models.{model_id}")
-model = model_module.load()
+model, model_device = device.place(model_module.load())
 max_words, max_width = windowing.limits(model_module, model)
-print(f"Model loaded and ready to serve requests; it examines up to {max_words} words per call")
+print(f"Model loaded on {model_device} and ready to serve requests; it examines up to {max_words} words per call")
 
 
 @app.route("/health", methods=["GET"])

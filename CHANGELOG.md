@@ -1,5 +1,6 @@
 ## 1.4.0 (2026-10-18)
 
+- The `-gpu` images now run GLiNER models on the GPU. `GLiNER.from_pretrained` loads to the CPU, and the model was not moved, so every GLiNER model ran on the CPU even with a GPU available; `medical_conditions` was not affected. The service now moves the model to CUDA when it is available and logs the device at startup.
 - Added `GET /model`, which returns the model the service was started with (`PHEYE_MODEL`), the most words it examines in one call (`maxWords`), and the most words one entity covers (`maxWidth`).
 - `/find` now examines all of a long text. A model reads at most `max_len` words in one call (512 for the `ph-eye-pii-en-*` models) and ignored the rest, so an entity after that point was not returned. Longer text is now detected in overlapping windows that fit, and each entity is returned once with offsets into the whole text. A GLiNER model's limit is read from its configuration. `medical_conditions`, which is not a GLiNER model and whose detections fell off as text grew (none of three conditions found at 4,216 words), uses windows of 256 words.
 - Changed the health check response from the plain string `healthy` to a JSON body (`{"status": "UP", "applicationVersion": "..."}`).

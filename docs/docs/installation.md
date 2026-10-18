@@ -30,6 +30,8 @@ To run all models together using Docker Compose:
 docker compose -f docker-compose.gpu.yaml up
 ```
 
+The service logs the device its model runs on when it starts, for example `Model loaded on cuda:0`. `cpu` means no GPU was available to the container, and the model runs on the CPU.
+
 See the [Developer Guide](development.md#building-docker-images) for instructions on building GPU images.
 
 ## Building from source
