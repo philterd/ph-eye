@@ -35,6 +35,7 @@ sys.modules["models._mock"] = _mock_module
 os.environ["PHEYE_MODEL"] = "_mock"
 
 import app as flask_app  # noqa: E402 — must come after sys.modules setup
+import windowing  # noqa: E402
 
 
 @pytest.fixture
@@ -125,3 +126,24 @@ def test_find_returns_500_on_exception(client):
     response = client.post("/find", json={"text": "some text."})
     assert response.status_code == 500
     _mock_module.predict.side_effect = None
+
+
+def test_find_detects_over_long_text_in_windows(client):
+    # The mock model reports a name at the start of every text it is given. The mock has no limits, so
+    # the service uses its default window size.
+    _mock_module.predict.reset_mock()
+    _mock_module.predict.side_effect = lambda model, text, labels, threshold: [
+        {"label": "Person", "score": 0.9, "text": text[:5], "start": 0, "end": 5}]
+    try:
+        text = " ".join(f"w{i:04d}" for i in range(1000))
+        response = client.post("/find", json={"text": text})
+
+        windows = [call.args[1] for call in _mock_module.predict.call_args_list]
+        assert response.status_code == 200
+        assert len(windows) > 1
+        assert all(len(window.split()) <= windowing.DEFAULT_MAX_WORDS for window in windows)
+        assert " ".join(windows).count("w0999") >= 1
+        # Each window reports the word at its own start; only the first window owns its start.
+        assert response.get_json() == [{"label": "Person", "score": 0.9, "text": "w0000", "start": 0, "end": 5}]
+    finally:
+        _mock_module.predict.side_effect = None

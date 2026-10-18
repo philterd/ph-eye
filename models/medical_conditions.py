@@ -15,6 +15,11 @@
 DEFAULT_LABELS = ["DISEASE_DISORDER"]
 DEFAULT_THRESHOLD = 0.0
 
+# Not a GLiNER model, so its configuration gives no word limit. Its detections fall off as text grows
+# (from three of three conditions at 296 words to none at 4,216), so /find sends it windows of this
+# many words. 200 and 256 kept the same conditions in testing; 128 lost one at 296 words.
+MAX_WORDS = 256
+
 
 def load():
     from transformers import pipeline

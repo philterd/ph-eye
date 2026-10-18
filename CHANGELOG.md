@@ -1,5 +1,6 @@
 ## 1.4.0 (2026-10-18)
 
+- `/find` now examines all of a long text. A model reads at most `max_len` words in one call (512 for the `ph-eye-pii-en-*` models) and ignored the rest, so an entity after that point was not returned. Longer text is now detected in overlapping windows that fit, and each entity is returned once with offsets into the whole text. A GLiNER model's limit is read from its configuration. `medical_conditions`, which is not a GLiNER model and whose detections fell off as text grew (none of three conditions found at 4,216 words), uses windows of 256 words.
 - Changed the health check response from the plain string `healthy` to a JSON body (`{"status": "UP", "applicationVersion": "..."}`).
 - Renamed the health check endpoint from `/status` to `/health`.
 - Updated GLiNER to 0.2.29. GLiNER 0.2.26 requires `transformers<5.2.0`, so it could not be installed alongside the pinned `transformers` 5.10.1.

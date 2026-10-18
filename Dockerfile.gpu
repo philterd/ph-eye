@@ -13,6 +13,7 @@ COPY download_model.py /app
 RUN python3 /app/download_model.py
 
 COPY app.py /app
+COPY windowing.py /app
 COPY run.sh /app
 
 ENV HF_HUB_DISABLE_TELEMETRY=1

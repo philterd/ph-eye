@@ -83,6 +83,8 @@ Find entities in text. `labels` and `threshold` are optional — defaults are mo
 
 The default `pii_en_small` model uses the label `name` and a threshold of `0.9`. Omit `labels` and `threshold` to use the model defaults.
 
+A model examines at most a fixed number of words in one call (`max_len`, 512 for the `ph-eye-pii-en-*` models) and ignores the rest. Longer text is detected in overlapping windows that each fit, and every entity is returned once, with offsets into the whole text. Words are counted as GLiNER counts them, so each punctuation mark is a word. A GLiNER model's limit comes from its configuration; `medical_conditions` uses windows of 256 words. Text that fits is detected in one call.
+
 **Response**
 
 ```json

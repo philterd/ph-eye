@@ -18,6 +18,8 @@ import os
 from flask import Flask, jsonify, request
 from waitress import serve
 
+import windowing
+
 __version__ = "1.4.0"
 
 app = Flask(__name__)
@@ -27,7 +29,8 @@ print(f"Starting ph-eye version {__version__} with model '{model_id}'")
 
 model_module = importlib.import_module(f"models.{model_id}")
 model = model_module.load()
-print("Model loaded and ready to serve requests")
+max_words, max_width = windowing.limits(model_module, model)
+print(f"Model loaded and ready to serve requests; it examines up to {max_words} words per call")
 
 
 @app.route("/health", methods=["GET"])
@@ -43,7 +46,8 @@ def find():
         labels = r.get("labels") or model_module.DEFAULT_LABELS
         threshold = r["threshold"] if "threshold" in r else model_module.DEFAULT_THRESHOLD
 
-        entities = model_module.predict(model, text, labels, threshold)
+        entities = windowing.predict(
+            text, lambda window: model_module.predict(model, window, labels, threshold), max_words, max_width)
         return entities, 200
 
     except Exception as e:
