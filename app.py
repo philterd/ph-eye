@@ -18,7 +18,7 @@ import os
 from flask import Flask, jsonify, request
 from waitress import serve
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 app = Flask(__name__)
 

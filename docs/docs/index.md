@@ -6,7 +6,7 @@ Ph-Eye provides a simple REST API that accepts text and returns a list of identi
 a single model selected at build time. Images are designed for air-gapped deployment — the model is baked into the image
 during `docker build` and no network access is required at runtime.
 
-Current Version: `1.3.0`
+Current Version: `1.4.0`
 
 While Ph-Eye can be used standalone, it was designed and created for use
 with [Phileas](https://github.com/philterd/phileas) and [Philter](https://github.com/philterd/philter) and as such

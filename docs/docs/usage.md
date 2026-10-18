@@ -19,7 +19,7 @@ curl http://localhost:5000/health
 ```json
 {
   "status": "UP",
-  "applicationVersion": "1.3.0"
+  "applicationVersion": "1.4.0"
 }
 ```
 

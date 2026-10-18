@@ -1,7 +1,8 @@
-## Unreleased
+## 1.4.0 (2026-10-18)
 
 - Changed the health check response from the plain string `healthy` to a JSON body (`{"status": "UP", "applicationVersion": "..."}`).
 - Renamed the health check endpoint from `/status` to `/health`.
+- Updated GLiNER to 0.2.29. GLiNER 0.2.26 requires `transformers<5.2.0`, so it could not be installed alongside the pinned `transformers` 5.10.1.
 
 ## 1.3.0 (2026-06-21)
 

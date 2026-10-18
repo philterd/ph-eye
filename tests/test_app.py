@@ -60,7 +60,7 @@ def test_health_returns_standard_health_response(client):
     response = client.get("/health")
     assert response.status_code == 200
     assert response.is_json
-    assert response.get_json() == {"status": "UP", "applicationVersion": "1.3.0"}
+    assert response.get_json() == {"status": "UP", "applicationVersion": "1.4.0"}
 
 
 def test_status_is_not_registered(client):

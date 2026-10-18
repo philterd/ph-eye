@@ -35,13 +35,13 @@ This produces tags of the form `philterd/ph-eye:<version>-<model>` (CPU) and `ph
 To build a single CPU image manually:
 
 ```bash
-docker build --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.3.0-hospitals .
+docker build --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.4.0-hospitals .
 ```
 
 To build a single GPU image manually:
 
 ```bash
-docker build -f Dockerfile.gpu --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.3.0-hospitals-gpu .
+docker build -f Dockerfile.gpu --build-arg PHEYE_MODEL=hospitals -t philterd/ph-eye:1.4.0-hospitals-gpu .
 ```
 
 The GPU image uses `pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime` as its base, which provides CUDA 12.1, cuDNN 8, and PyTorch pre-installed. Running a GPU image requires the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) on the host and the `--gpus all` flag.

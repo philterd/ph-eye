@@ -33,21 +33,21 @@ Pass `PHEYE_MODEL` as a build argument to select the model. The model is downloa
 the image at build time.
 
 ```bash
-docker build --build-arg PHEYE_MODEL=pii_en_small        -t pheye:1.3.0-pii-en-small .
-docker build --build-arg PHEYE_MODEL=pii_en_xsmall       -t pheye:1.3.0-pii-en-xsmall .
-docker build --build-arg PHEYE_MODEL=pii_en_medium       -t pheye:1.3.0-pii-en-medium .
-docker build --build-arg PHEYE_MODEL=pii_en_large        -t pheye:1.3.0-pii-en-large .
-docker build --build-arg PHEYE_MODEL=pii_base            -t pheye:1.3.0-pii-base .
-docker build --build-arg PHEYE_MODEL=hospitals           -t pheye:1.3.0-hospitals .
-docker build --build-arg PHEYE_MODEL=medical_conditions  -t pheye:1.3.0-medical-conditions .
-docker build --build-arg PHEYE_MODEL=french_persons      -t pheye:1.3.0-french-persons .
-docker build --build-arg PHEYE_MODEL=french_medical      -t pheye:1.3.0-french-medical .
+docker build --build-arg PHEYE_MODEL=pii_en_small        -t pheye:1.4.0-pii-en-small .
+docker build --build-arg PHEYE_MODEL=pii_en_xsmall       -t pheye:1.4.0-pii-en-xsmall .
+docker build --build-arg PHEYE_MODEL=pii_en_medium       -t pheye:1.4.0-pii-en-medium .
+docker build --build-arg PHEYE_MODEL=pii_en_large        -t pheye:1.4.0-pii-en-large .
+docker build --build-arg PHEYE_MODEL=pii_base            -t pheye:1.4.0-pii-base .
+docker build --build-arg PHEYE_MODEL=hospitals           -t pheye:1.4.0-hospitals .
+docker build --build-arg PHEYE_MODEL=medical_conditions  -t pheye:1.4.0-medical-conditions .
+docker build --build-arg PHEYE_MODEL=french_persons      -t pheye:1.4.0-french-persons .
+docker build --build-arg PHEYE_MODEL=french_medical      -t pheye:1.4.0-french-medical .
 ```
 
 ## Running
 
 ```bash
-docker run -p 5000:5000 pheye:1.3.0-pii-en-small
+docker run -p 5000:5000 pheye:1.4.0-pii-en-small
 ```
 
 To run all models together using Docker Compose:
@@ -111,7 +111,7 @@ Returns a standard JSON health response when the service is running and the mode
 ```json
 {
   "status": "UP",
-  "applicationVersion": "1.3.0"
+  "applicationVersion": "1.4.0"
 }
 ```
 
