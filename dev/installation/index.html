@@ -605,6 +605,7 @@ runtime.</p>
 <p>To run all models together using Docker Compose:</p>
 <pre><code class="language-bash">docker compose -f docker-compose.gpu.yaml up
 </code></pre>
+<p>The service logs the device its model runs on when it starts, for example <code>Model loaded on cuda:0</code>. <code>cpu</code> means no GPU was available to the container, and the model runs on the CPU.</p>
 <p>See the <a href="../development/#building-docker-images">Developer Guide</a> for instructions on building GPU images.</p>
 <h2 id="building-from-source">Building from source</h2>
 <p>If you need a model not covered by the official images, you can build your own. See
