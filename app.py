@@ -38,6 +38,13 @@ def health():
     return jsonify(status="UP", applicationVersion=__version__)
 
 
+@app.route("/model", methods=["GET"])
+def model_info():
+    # What a client needs to send text the model reads whole: the most words it examines in one call
+    # and the most words one entity covers.
+    return jsonify(name=model_id, maxWords=max_words, maxWidth=max_width)
+
+
 @app.route("/find", methods=["POST"])
 def find():
     try:

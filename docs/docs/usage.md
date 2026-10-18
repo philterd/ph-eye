@@ -1,6 +1,6 @@
 # API Usage
 
-Ph-Eye provides two endpoints: `GET /health` and `POST /find`.
+Ph-Eye provides three endpoints: `GET /health`, `GET /model`, and `POST /find`.
 
 ## Health check
 
@@ -20,6 +20,28 @@ curl http://localhost:5000/health
 {
   "status": "UP",
   "applicationVersion": "1.4.0"
+}
+```
+
+## Model limits
+
+**Endpoint:** `GET /model`
+
+Returns the model the service was started with (`name`, its `PHEYE_MODEL`), the most words the model examines in one call (`maxWords`, a GLiNER model's `max_len`), and the most words one entity can cover (`maxWidth`). `/find` detects in windows of `maxWords` words; a client that sends text of at most `maxWords` words has it detected in one call.
+
+**Example request:**
+
+```bash
+curl http://localhost:5000/model
+```
+
+**Example response:**
+
+```json
+{
+  "name": "pii_en_small",
+  "maxWords": 512,
+  "maxWidth": 12
 }
 ```
 

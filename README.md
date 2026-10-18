@@ -106,6 +106,18 @@ A model examines at most a fixed number of words in one call (`max_len`, 512 for
 ]
 ```
 
+### `GET /model`
+
+Returns the model the service was started with (`name`, its `PHEYE_MODEL`), the most words the model examines in one call (`maxWords`, a GLiNER model's `max_len`), and the most words one entity can cover (`maxWidth`). `/find` detects in windows of `maxWords` words; a client that sends text of at most `maxWords` words has it detected in one call.
+
+```json
+{
+  "name": "pii_en_small",
+  "maxWords": 512,
+  "maxWidth": 12
+}
+```
+
 ### `GET /health`
 
 Returns a standard JSON health response when the service is running and the model is loaded.

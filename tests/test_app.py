@@ -69,6 +69,33 @@ def test_status_is_not_registered(client):
     assert response.status_code == 404
 
 
+# --- /model ---
+
+def test_model_reports_the_name_and_limits(client):
+    response = client.get("/model")
+    assert response.status_code == 200
+    assert response.get_json() == {
+        "name": "_mock",
+        "maxWords": windowing.DEFAULT_MAX_WORDS,
+        "maxWidth": windowing.DEFAULT_MAX_WIDTH,
+    }
+
+
+def test_model_reports_the_limits_find_uses(client, monkeypatch):
+    # With the limits set to 384 words, /model reports 384 and /find sends no window longer than that.
+    monkeypatch.setattr(flask_app, "max_words", 384)
+    monkeypatch.setattr(flask_app, "max_width", 10)
+    _mock_module.predict.reset_mock()
+
+    assert client.get("/model").get_json()["maxWords"] == 384
+    assert client.get("/model").get_json()["maxWidth"] == 10
+
+    client.post("/find", json={"text": " ".join(f"w{i}" for i in range(1000))})
+    windows = [call.args[1] for call in _mock_module.predict.call_args_list]
+    assert len(windows) > 1
+    assert max(len(window.split()) for window in windows) == 384
+
+
 # --- /find ---
 
 def test_find_returns_200(client):
