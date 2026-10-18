@@ -398,6 +398,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#long-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-request" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -531,6 +542,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#long-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-request" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -637,6 +659,8 @@
 </tbody>
 </table>
 <p>Default values for <code>labels</code> and <code>threshold</code> vary by model — see <a href="../#available-models">Available models</a>.</p>
+<h3 id="long-text">Long text</h3>
+<p>A model examines at most a fixed number of words in one call (<code>max_len</code>, 512 for the <code>ph-eye-pii-en-*</code> models) and ignores the rest. Longer text is detected in overlapping windows that each fit, and every entity is returned once, with offsets into the whole text. Words are counted as GLiNER counts them, so each punctuation mark is a word. A GLiNER model's limit comes from its configuration; <code>medical_conditions</code> uses windows of 256 words. Text that fits is detected in one call.</p>
 <h3 id="example-request">Example request</h3>
 <pre><code class="language-bash">curl -X POST http://localhost:5000/find \
   -H &quot;Content-Type: application/json&quot; \
