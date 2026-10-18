@@ -375,6 +375,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#model-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#find-entities" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -519,6 +530,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#model-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#find-entities" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -611,7 +633,7 @@
 
 
 <h1 id="api-usage">API Usage</h1>
-<p>Ph-Eye provides two endpoints: <code>GET /health</code> and <code>POST /find</code>.</p>
+<p>Ph-Eye provides three endpoints: <code>GET /health</code>, <code>GET /model</code>, and <code>POST /find</code>.</p>
 <h2 id="health-check">Health check</h2>
 <p><strong>Endpoint:</strong> <code>GET /health</code></p>
 <p>Returns a standard JSON health response when the service is running and the model is loaded.</p>
@@ -622,6 +644,19 @@
 <pre><code class="language-json">{
   &quot;status&quot;: &quot;UP&quot;,
   &quot;applicationVersion&quot;: &quot;1.4.0&quot;
+}
+</code></pre>
+<h2 id="model-limits">Model limits</h2>
+<p><strong>Endpoint:</strong> <code>GET /model</code></p>
+<p>Returns the model the service was started with (<code>name</code>, its <code>PHEYE_MODEL</code>), the most words the model examines in one call (<code>maxWords</code>, a GLiNER model's <code>max_len</code>), and the most words one entity can cover (<code>maxWidth</code>). <code>/find</code> detects in windows of <code>maxWords</code> words; a client that sends text of at most <code>maxWords</code> words has it detected in one call.</p>
+<p><strong>Example request:</strong></p>
+<pre><code class="language-bash">curl http://localhost:5000/model
+</code></pre>
+<p><strong>Example response:</strong></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;pii_en_small&quot;,
+  &quot;maxWords&quot;: 512,
+  &quot;maxWidth&quot;: 12
 }
 </code></pre>
 <h2 id="find-entities">Find entities</h2>
