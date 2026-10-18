@@ -1,3 +1,9 @@
+## 1.2.6 (2026-09-09)
+
+- Updated `transformers` to 5.5.0, resolving CVE-2026-5241. The 5.1.0 pin shipped in 1.2.5 is the affected version.
+- Updated GLiNER to 0.2.29. This is required, not incidental: GLiNER 0.2.26 constrains `transformers<5.2.0`, so the fixed version cannot be installed alongside it.
+- No model or API changes. The default English model remains `pii_base` using the `Person` label, so detection behavior is unchanged from 1.2.5.
+
 ## 1.2.5 (2026-05-26)
 
 - Consolidated all model variants into a single codebase and repository. Previously each model lived on a separate branch; models now live in `models/` as individual modules.

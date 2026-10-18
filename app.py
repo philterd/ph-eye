@@ -18,7 +18,7 @@ import os
 from flask import Flask, request
 from waitress import serve
 
-__version__ = "1.2.5"
+__version__ = "1.2.6"
 
 app = Flask(__name__)
 
